@@ -3,11 +3,14 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Transaction {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
   type: string;
+
+  @Column()
+  coin: string;
 
   @Column()
   amount: number;

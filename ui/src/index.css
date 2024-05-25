@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Poppins';
+}
+
+#table-container {
+  @apply border-0;
+}
+
+#table-header {
+  @apply bg-primary bg-opacity-60 text-black;
+}
+
+@layer base {
+  #root {
+    @apply h-screen w-screen bg-secondary;
+  }
+}
+
+#column {
+  color: black !important;
+}
+
+#field {
+  color: black !important;
+}

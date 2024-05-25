@@ -1,28 +1,20 @@
 import { Balance } from 'src/balance/balance.entity';
 import { Transaction } from 'src/transactions/transactions.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  OneToOne,
-  JoinColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @Column()
   password: string;
 
-  @OneToOne(() => Balance)
-  @JoinColumn()
-  balance: Balance;
+  @OneToMany(() => Balance, (balance) => balance.user)
+  balances: Balance[];
 
   @OneToMany(() => Transaction, (transaction) => transaction.user)
   transactions: Transaction[];

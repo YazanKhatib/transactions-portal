@@ -8,7 +8,7 @@ import {
   Controller,
   HttpStatus,
 } from '@nestjs/common';
-import { AuthPayloadDto } from './dto/auth.dto';
+import { AuthPayloadDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 
