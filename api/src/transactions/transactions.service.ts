@@ -42,7 +42,7 @@ export class TransactionsService {
 
     console.log(record);
 
-    if (record.amount >= amount) {
+    if (record.amount >= amount && amount > 0) {
       record.amount -= amount;
       await this.balanceRepository.save(record);
 

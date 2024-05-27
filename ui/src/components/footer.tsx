@@ -2,7 +2,7 @@ import * as React from "react";
 
 export const Footer: React.FC = () => {
   return (
-    <div className="mt-20">
+    <footer className="mx-auto mt-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="flex w-full flex-col items-center justify-between text-center md:flex-row md:text-left ">
         <img className="h-12 bg-primary" src="/darklogo.jpeg" alt="M2 logo" />
 
@@ -14,6 +14,6 @@ export const Footer: React.FC = () => {
           <p>2024 M2 - All rights reserved.</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

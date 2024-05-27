@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/users.entity';
@@ -17,7 +17,10 @@ export class AuthService {
     const user = await this.usersService.findOne(null, username);
 
     if (user?.password !== pass) {
-      throw new UnauthorizedException();
+      throw new HttpException(
+        `Username or Password are incorrect!`,
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
     const payload = { sub: user.id, username: user.username };

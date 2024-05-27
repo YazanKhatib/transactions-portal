@@ -38,6 +38,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
       );
 
       setTransactions((previous) => [...previous, data]);
+      setState(false);
       toast.success("Transaction was sent successfully!");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -75,7 +76,10 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <form
+                onSubmit={handleSubmit}
+                className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+              >
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -88,61 +92,65 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="mb-3 text-left font-semibold leading-6 text-gray-900"
+                        className="mb-3 mt-2 text-left text-xl font-medium leading-6 text-gray-900"
                       >
                         Send a transaction
                       </Dialog.Title>
 
-                      <form>
-                        <div className="mb-3">
-                          <label
-                            htmlFor="coin"
-                            className="flex justify-start text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Coin
-                          </label>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="coin"
+                          className="flex justify-start text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Coin
+                        </label>
 
-                          <Select
-                            name="coin"
-                            options={options}
-                            onChange={(e) => setCoin(e!.label)}
-                            placeholder="bitcoin"
-                            className="rounded-md py-1.5 text-left text-gray-900 ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                          />
-                        </div>
+                        <Select
+                          required
+                          name="coin"
+                          options={options}
+                          onChange={(e) => setCoin(e!.label)}
+                          placeholder="bitcoin"
+                          className="rounded-md py-1.5 text-left text-gray-900 ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        />
+                      </div>
 
-                        <div className="mb-3">
-                          <label
-                            htmlFor="amount"
-                            className="flex justify-start text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Amount
-                          </label>
-                          <input
-                            type="number"
-                            name="amount"
-                            className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                            placeholder="0.00"
-                            onChange={(e) => setAmount(e.target.value)}
-                          />
-                        </div>
+                      <div className="mb-3">
+                        <label
+                          htmlFor="amount"
+                          className="flex justify-start pb-1 text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Amount
+                        </label>
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          required
+                          min="1"
+                          name="amount"
+                          className="w-full rounded-md border-0 py-2 pl-3 text-gray-900 outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                          placeholder="0.00"
+                          onChange={(e) => setAmount(e.target.value)}
+                        />
+                      </div>
 
-                        <div>
-                          <label
-                            htmlFor="address"
-                            className="flex justify-start text-sm font-medium leading-6 text-gray-900"
-                          >
-                            Address
-                          </label>
-                          <input
-                            type="text"
-                            name="address"
-                            className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                            placeholder="Wallet address"
-                            onChange={(e) => setAddress(e.target.value)}
-                          />
-                        </div>
-                      </form>
+                      <div>
+                        <label
+                          htmlFor="address"
+                          className="flex justify-start pb-1 text-sm font-medium leading-6 text-gray-900"
+                        >
+                          Address
+                        </label>
+                        <input
+                          required
+                          type="text"
+                          name="address"
+                          className="block w-full rounded-md border-0 py-2 pl-3 text-gray-900 outline-none ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                          placeholder="Wallet address"
+                          onChange={(e) => setAddress(e.target.value)}
+                        />
+                      </div>
+
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
                           Are you sure you want to send this transaction. This
@@ -154,12 +162,8 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
-                    type="button"
+                    type="submit"
                     className="w-full justify-center rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary sm:ml-3 sm:w-auto"
-                    onClick={() => {
-                      handleSubmit();
-                      setState(false);
-                    }}
                   >
                     Submit
                   </button>
@@ -172,7 +176,7 @@ export const DialogComponent: React.FC<DialogComponentProps> = ({
                     Cancel
                   </button>
                 </div>
-              </Dialog.Panel>
+              </form>
             </Transition.Child>
           </div>
         </div>
