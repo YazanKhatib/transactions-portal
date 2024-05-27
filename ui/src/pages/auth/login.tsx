@@ -17,7 +17,6 @@ const Login = () => {
         username,
         password,
       });
-      console.log("sup");
 
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("accessToken", data.access_token);
@@ -51,7 +50,7 @@ const Login = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6">
+        <div className="space-y-6">
           <div>
             <label
               htmlFor="username"
@@ -97,7 +96,7 @@ const Login = () => {
           >
             Sign in
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
